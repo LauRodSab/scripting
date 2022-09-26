@@ -1,26 +1,25 @@
 #!/bin/bash
 user=$1
 
-#Si no se especifica un usuario se pide que lo escribas
-
-read -p "Introduce nombre de usuario " user
-
+#Compruebo si se ha escrito el usuario, si no existe lo pide
 if [ -z $user ]
 then
-        cat /etc/passwd | grep $user
-        echo "$user"
-
+        read -p "Introduce nombre de usuario " user
 fi
 
-if [ -z $user ]
-then
-	cat /etc/passwd | grep $user
-        echo "El usuario $user no existe"
+
+cat /etc/passwd | grep "$user" > /dev/null && E=0 || E=1 
+
+if [ $E -eq 1 ] 
+then   
+	echo "El usuario $user no existe"
 	exit 1
+else
+        echo "Nombre: $(grep -w $1 /etc/passwd | cut -d: -f1)"
+        echo "UID: $(grep -w $1 /etc/passwd | cut -d: -f3)"
+        echo "GID: $(grep -w $1 /etc/passwd | cut -d: -f4)"
+        echo "Home: $(grep -w $1 /etc/passwd | cut -d: -f6)"
+        echo "Shell: $(grep -w $1 /etc/passwd | cut -d: -f7)"
 fi
 
-if [ -f $user ]
-then 
-	cat /etc/passwd | grep $user
-	echo "$user"
-fi
+

@@ -1,0 +1,23 @@
+#/bin/bash
+user=$1
+
+
+if [ -z $user ]
+then
+	read -p "Introduce nombre de usuario " user
+
+
+elif [ -f $user ]
+then
+	echo "El usuario $user no existe"
+	exit 1
+fi 
+
+if [-f grep "$user" /etc/passwd ]
+then
+	echo "Nombre: $(grep -w $1 /etc/passwd | cut -d: -f1)"
+	echo "UID: $(grep -w $1 /etc/passwd | cut -d: -f3)"
+	echo "GID: $(grep -w $1 /etc/passwd | cut -d: -f4)"
+	echo "Home: $(grep -w $1 /etc/passwd | cut -d: -f6)"
+	echo "Shell: $(grep -w $1 /etc/passwd | cut -d: -f7)"
+fi

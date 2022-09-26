@@ -1,0 +1,20 @@
+
+#!/bin/bash
+user=$1
+
+
+#Compruebo si se ha escrito el usuario
+if [ -z $user ]
+then
+	read -p "Introduce nombre de usuario " user
+        cat /etc/passwd | grep $user
+else
+	echo "El usuario $user no existe"
+	exit 1
+fi
+
+#if [ -f $user ]
+#then 
+#	cat /etc/passwd | grep $user
+#	echo $user"
+#fi
