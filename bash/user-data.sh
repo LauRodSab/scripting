@@ -5,7 +5,14 @@ user=$1
 if [ -z $user ]
 then
         read -p "Introduce nombre de usuario: " user
+	
 
+fi
+
+if [ -z $user ]
+then 
+	echo "No se ha introducido un usuario"
+	exit 1
 fi
 
 cat /etc/passwd | grep "$user" > /dev/null && E=0 || E=1 
@@ -22,8 +29,6 @@ else
         echo "GID: $(grep -w $user /etc/passwd | cut -d: -f4)"
         echo "Home: $(grep -w $user /etc/passwd | cut -d: -f6)"
         echo "Shell: $(grep -w $user /etc/passwd | cut -d: -f7)"
-
-
 fi
 
 
