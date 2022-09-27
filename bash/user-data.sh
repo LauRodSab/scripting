@@ -5,8 +5,6 @@ user=$1
 if [ -z $user ]
 then
         read -p "Introduce nombre de usuario: " user
-	
-
 fi
 
 if [ -z $user ]
@@ -19,7 +17,6 @@ cat /etc/passwd | grep "$user" > /dev/null && E=0 || E=1
 
 if [ $E -eq 1 ] 
 then   
-
 	echo "El usuario $user no existe"
         exit 1
 else
